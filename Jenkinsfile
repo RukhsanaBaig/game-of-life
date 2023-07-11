@@ -1,13 +1,17 @@
 pipeline {
     agent { label 'MAVEN_JDK8' }
+    triggers { pollscm ('H/30 * * * *') }
     stages {
         stage('vcs') {
             steps {
-                git url: 'https://github.com/RukhsanaBaig/game-of-life.git',
+                git url: 'https://github.com/khajadevopsmarch23/game-of-life.git',
                     branch: 'declarative'
             }
         }
         stage('package') {
+            tools {
+                jdk 'JDK_8_UBUNTU'
+            }
             steps {
                 sh 'mvn package'
             }
@@ -20,4 +24,4 @@ pipeline {
             }
         }
     }
-}    
+    
